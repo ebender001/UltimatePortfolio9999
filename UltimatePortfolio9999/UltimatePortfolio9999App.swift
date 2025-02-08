@@ -9,9 +9,19 @@ import SwiftUI
 
 @main
 struct UltimatePortfolio9999App: App {
+    @StateObject var dataController = DataController()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationSplitView(sidebar: {
+                SidebarView()
+            }, content: {
+                ContentView()
+            }, detail: {
+                DetailView()
+            })
+                .environment(\.managedObjectContext, dataController.container.viewContext)
+                .environmentObject(dataController)
         }
     }
 }
